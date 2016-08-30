@@ -43,10 +43,11 @@ class _MicroGear {
         }
     }
 
-    chat(to, msg, qos, retain) {
+    chat(to, msg, opts) {
+        opts = opts|| {};
         let topic = "/" + this._appId + "/gearname/"  + to;
-        qos = qos || 0;
-        retain = false;
+        let qos = opts.qos || 0;
+        let retain = (opts.retain === undefined) || false;
         if (this._client) {
             this._client.publish(topic, msg, qos, retain);
             return true;
